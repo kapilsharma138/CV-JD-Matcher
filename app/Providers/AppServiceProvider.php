@@ -11,7 +11,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // ADDED: tell Laravel how to resolve SuggestionEngine
+        // (it needs KeywordExtractor injected, Laravel handles the rest)
+        $this->app->bind(\App\Services\SuggestionEngine::class, function ($app) {
+            return new \App\Services\SuggestionEngine(
+                $app->make(\App\Services\KeywordExtractor::class)
+            );
+        });
     }
 
     /**
