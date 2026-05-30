@@ -1,14 +1,113 @@
-Senior PHP Laravel Node.js Engineer AWS REST APIs Microservices Scalable Systems
+KAPIL SHARMA
+Senior PHP Laravel & Node.js Engineer · AWS · REST APIs · Microservices · Scalable Systems
 
-PHP 8 Laravel Eloquent ORM Artisan CLI Blade Composer CakePHP MVC Architecture OOP
-Node.js Express.js TypeScript JavaScript ES6 Async Await REST API design
-AWS Lambda Amazon EC2 Amazon RDS Amazon S3 AWS IAM AWS VPC CloudFormation Docker CI/CD GitHub Actions
-MySQL PostgreSQL DynamoDB MongoDB Redis Query Optimisation Database Schema Design
-RESTful APIs Microservices API Security Authentication Authorisation Webhooks
-Go SQL HTML5 CSS Git GitHub Agile Scrum Code Review Technical Mentoring
-AWS Cloud Practitioner
+work.kapil138@gmail.com | +91-7899091446 | Delhi, India | Open to Remote & Hybrid
+linkedin.com/in/kapil-sharma-7665a7b0 | github.com/kapilsharma138
 
-Software Engineer Silver Touch Technologies PHP Laravel Node.js DRDO NCDC government portals
-security authentication authorisation input sanitisation batch processing pagination
-query optimisation indexing Redis caching Eloquent ORM CloudFormation GitHub Actions
-EC2 RDS VPC Lambda S3 microservices REST API mentoring junior developers
+
+PROFESSIONAL SUMMARY
+--------------------
+Senior PHP Laravel & Node.js Engineer with 4+ years delivering secure, high-availability
+government portals and enterprise APIs for 10,000+ stakeholders (DRDO, NCDC). Deep expertise
+in PHP 8, Laravel (Eloquent ORM, Artisan CLI, Blade, Composer), CakePHP, Node.js/Express.js,
+and AWS cloud infrastructure (EC2, Lambda, RDS, S3, CloudFormation). Reduced database query
+times by 50% and bulk-export processing by 40% on mission-critical government systems — with
+zero security incidents across 3+ years. AWS Cloud Practitioner certified. DRDO Appreciation
+Letter recipient. Open to Senior PHP Developer, Senior Laravel Developer, and Backend Engineer
+roles — remote, hybrid, or on-site Delhi NCR.
+
+
+KEY ACHIEVEMENTS
+----------------
+- 50% faster DB queries — indexing, caching, ORM optimization
+- 40% faster bulk exports — 15min to 9min for 50K+ records
+- Zero security incidents across 3+ years on DRDO & NCDC portals
+- DRDO Appreciation Letter · Best PHP Developer 2022–23
+
+
+TECHNICAL SKILLS
+----------------
+PHP Stack       : PHP 8 · Laravel (Eloquent ORM, Artisan CLI, Blade, Composer) · CakePHP ·
+                  MVC Architecture · OOP
+Node.js         : Node.js · Express.js · TypeScript · JavaScript (ES6+) · Async/Await ·
+                  REST API design
+Cloud & Infra   : AWS Lambda · Amazon EC2 · Amazon RDS · Amazon S3 · AWS IAM · AWS VPC ·
+                  CloudFormation (IaC) · Docker · CI/CD (GitHub Actions)
+Databases       : MySQL · PostgreSQL · DynamoDB · MongoDB · Redis · Query Optimization ·
+                  Database Schema Design
+Architecture    : RESTful APIs · REST API Design · Microservices · API Security ·
+                  Authentication & Authorization · Webhooks
+Other           : Go · SQL · HTML5 · CSS · Git · GitHub · Agile/Scrum · Code Review ·
+                  Technical Mentoring
+AI Dev Tools    : GitHub Copilot · Claude AI (development workflows)
+Certifications  : AWS Cloud Practitioner (2022)
+
+
+PERSONAL PROJECTS
+-----------------
+Query Benchmark API — Laravel · MySQL · Redis · AWS EC2
+Live: 13.203.229.215
+
+Three-tier REST API proving measurable backend performance optimization: SELECT * vs selective
+columns, MySQL EXPLAIN analysis, and Redis caching — each technique isolated and benchmarked
+with real numbers on 50,000 rows.
+
+Result      : 97.52% improvement: 16.41ms to 0.61ms · 92.49% from column reduction alone
+Techniques  : MySQL EXPLAIN · Composite indexing · Redis Cache::remember() · Batch seeding 50K rows
+Architecture: Modular Laravel (nwidart/laravel-modules) · RESTful JSON API · Deployed on AWS EC2
+GitHub      : github.com/kapilsharma138/Query-Benchmark-API
+Live demo   : http://13.203.229.215/api/cached-with-explain
+
+
+EXPERIENCE
+----------
+Software Engineer · Silver Touch Technologies Pvt. Ltd.          Mar 2022 – Present
+
+PHP Laravel & Node.js backend development for DRDO and NCDC government portals —
+mission-critical systems with strict compliance, security, and zero-downtime requirements.
+
+- Built government-grade PHP Laravel portals (DRDO, NCDC) serving 10,000+ stakeholders with
+  multi-layer API security — authentication, authorization, input sanitization — processing
+  10K+ records daily with zero security incidents across 3+ years.
+- Designed and maintained RESTful APIs and supplementary Node.js/Express.js microservices for
+  async processing and background jobs, supporting 1,000+ concurrent users across distributed
+  systems.
+- Eliminated dashboard timeout issues by redesigning bulk data-export pipelines using PHP
+  pagination and batch processing, reducing Excel/PDF generation time by 40% (15 min to 9 min
+  for 50K+ records).
+- Optimized complex MySQL queries using indexing, query analysis, Eloquent ORM tuning, and
+  Redis caching — achieving 50% improvement in cooperative-sector dashboard load times.
+- Architected and deployed AWS infrastructure via CloudFormation (IaC) and GitHub Actions
+  CI/CD across EC2, RDS, VPC, Lambda, and S3 — reducing deployment errors by 20% and
+  provisioning time by 20%.
+- Mentored 3 junior PHP developers over 12 months on Laravel best practices, code reviews,
+  and OOP principles — reducing onboarding errors by 15% and accelerating module delivery.
+- Received DRDO Appreciation Letter (2023) for outstanding project delivery; awarded Best PHP
+  Developer at Silver Touch Technologies (2022–23); maintained 95% first-time resolution rate
+  across 200+ production tickets.
+
+
+PHP Developer · Helios Tech Lab Pvt. Ltd.                        Mar 2021 – Jun 2021
+
+Short-tenure contract role — PHP application hardening and authentication API integration.
+
+- Integrated secure PHP authentication APIs and hardened existing web applications, reducing
+  downtime incidents by 20% and improving client adoption metrics.
+- Introduced unit tests and workflow documentation using PHP best practices, increasing code
+  maintainability by 30% and reducing production defects by 20%.
+
+
+EDUCATION
+---------
+B. Tech — Computer Science & Engineering                          2015 – 2020
+Mangalore Institute of Technology & Engineering, Mangalore
+
+
+CERTIFICATIONS & RECOGNITION
+-----------------------------
+- AWS Cloud Practitioner Certified (2022) — Amazon Web Services
+- DRDO Appreciation Letter — Outstanding Project Delivery Excellence (2023)
+- Best PHP Developer — Silver Touch Technologies (2022–23)
+- 95% First-Time Resolution Rate — 200+ production support tickets
+
+github.com/kapilsharma138 · Open to India & global remote roles
