@@ -49,4 +49,34 @@ class KeywordExtractor
     {
         return $this->keywords['related'] ?? [];
     }
+
+
+    public function extractFromJD(string $jdText): array
+    {
+        $jdText   = strtolower($jdText);
+        $techTerms = require base_path('data/tech-terms.php');
+        $found    = [];
+
+        foreach ($techTerms as $term) {
+            if (preg_match('/\b' . preg_quote($term, '/') . '\b/', $jdText)) {
+                $found[] = [
+                    'term'   => $term,
+                    'weight' => $this->getWeight($term),
+                ];
+            }
+        }
+
+        return ['extracted' => $found];
+    }
+
+    private function getWeight(string $term): int
+    {
+        foreach ($this->keywords as $category => $terms) {
+            if ($category === 'related') continue;
+            if (array_key_exists($term, $terms)) {
+                return $terms[$term]; // use your defined weight if exists
+            }
+        }
+        return 1; // default weight for unknown terms
+    }
 }

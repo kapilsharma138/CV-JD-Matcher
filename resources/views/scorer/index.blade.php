@@ -313,7 +313,7 @@
         document.getElementById('results').classList.remove('visible');
 
         try {
-            const res = await fetch('/score', {
+            const res = await fetch('{{ url('/score') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

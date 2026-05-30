@@ -65,7 +65,7 @@ return [
         'spring'     => null,
         'rails'      => null,
         'linux'      => 'AWS EC2 (Linux instances)',
-    'kubernetes' => 'Docker',
+    // 'kubernetes' => 'Docker',
     'kafka'      => null,
     'rabbitmq'   => null,
     // add more as you think of them
