@@ -1,63 +1,210 @@
-<<<<<<< HEAD
-# CV-JD-Matcher
-=======
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CV–JD Matcher
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> A Laravel tool that scores how well your CV matches a job description — built and used during an active job search.
 
-## About Laravel
+Paste a job description. It scans it against a master tech term list, finds every relevant keyword, checks how many appear in your CV, and returns a match score with a breakdown of what's missing and how to address each gap.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## How it works
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+Job Description (text)
+        ↓
+KeywordExtractor — scans against 200+ tech terms master list
+        ↓
+Found: [php, laravel, docker, kubernetes, kafka, linux...]
+        ↓
+CVScorer — compares JD keywords vs CV keywords (weighted)
+        ↓
+Score = matched weight / total possible weight × 100
+        ↓
+SuggestionEngine — for each missing keyword:
+    → adjacent skill found → "You have Docker, mention it as adjacent to Kubernetes"
+    → genuine gap         → "Flag as learning"
+    → unlisted            → "Research if common in PHP roles"
+        ↓
+JSON response → rendered in Blade UI
+```
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Results on a real JD
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Tested against a Senior Backend Engineer JD (PHP, Laravel, Docker, Kubernetes, Linux, Kafka):
 
-## Laravel Sponsors
+| Keyword | In CV | Weight | Points |
+|---|---|---|---|
+| PHP | ✅ | 3 | 3/3 |
+| Laravel | ✅ | 3 | 3/3 |
+| Docker | ✅ | 2 | 2/2 |
+| AWS | ✅ | 2 | 2/2 |
+| Kubernetes | ❌ | 1 | 0/1 |
+| Linux | ❌ | 1 | 0/1 |
+| Kafka | ❌ | 1 | 0/1 |
+| **Score** | | **13 pts possible** | **10/13 = 76.9%** |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Missing terms: Kubernetes (adjacent: Docker) · Linux (adjacent: AWS EC2) · Kafka (genuine gap)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## What this demonstrates
 
-## Contributing
+**1. Service class architecture**
+Four single-responsibility service classes — `KeywordExtractor`, `CVScorer`, `SuggestionEngine` each do exactly one job. The controller wires them together via Laravel's dependency injection container.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**2. Algorithm design**
+Weighted keyword scoring — must-have terms (PHP, Laravel) score 3 points, important terms (AWS, Docker) score 2, nice-to-have terms score 1. Missing a must-have costs more than missing a nice-to-have. Designed and implemented without a library.
 
-## Code of Conduct
+**3. Word boundary matching**
+`preg_match('/\b' . preg_quote($term) . '\b/')` prevents false positives — "sql" won't match inside "mysql", "php" won't match inside "phpstorm". A real bug found during testing, fixed with a deliberate solution.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Auto-extraction from JD**
+The tool doesn't rely solely on a fixed dictionary. `extractFromJD()` scans the JD against a master tech term list (200+ terms) — works on any job description without predicting keywords in advance.
 
-## Security Vulnerabilities
+**5. PHPUnit test coverage**
+12 unit tests, 28 assertions across two test classes. Core scoring logic is fully tested in isolation — not the framework, the algorithm.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**6. Laravel dependency injection**
+Services are bound in `AppServiceProvider` and injected via constructor — not `new`'d inside methods. Clean, testable, production-grade pattern.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
->>>>>>> fd745cb (first commit)
+## Endpoints
+
+```
+GET  /           — web UI (paste JD, see results)
+POST /score      — JSON API (returns score, matched, missing, suggestions)
+```
+
+### Sample API response
+
+```json
+{
+    "score": 86.4,
+    "matched": [
+        { "term": "php",        "category": "extracted", "weight": 3 },
+        { "term": "laravel",    "category": "extracted", "weight": 3 },
+        { "term": "javascript", "category": "extracted", "weight": 3 },
+        { "term": "docker",     "category": "extracted", "weight": 2 }
+    ],
+    "missing": [
+        { "term": "linux",  "category": "extracted", "weight": 1 },
+        { "term": "oracle", "category": "extracted", "weight": 1 }
+    ],
+    "suggestions": [
+        {
+            "term": "linux",
+            "type": "adjacent",
+            "message": "You have AWS EC2 (Linux instances) — mention it as adjacent to linux"
+        },
+        {
+            "term": "oracle",
+            "type": "unlisted",
+            "message": "Not in your profile — research if it appears often in PHP roles"
+        }
+    ],
+    "total": 10
+}
+```
+
+---
+
+## Architecture
+
+```
+cv-jd-matcher/
+├── app/
+│   ├── Console/Commands/          ← (planned: CLI interface)
+│   ├── Http/Controllers/
+│   │   └── ScoreController.php    ← receives request, wires services, returns JSON
+│   ├── Providers/
+│   │   └── AppServiceProvider.php ← binds SuggestionEngine with KeywordExtractor
+│   └── Services/
+│       ├── KeywordExtractor.php   ← scans text, finds tech terms
+│       ├── CVScorer.php           ← weighted scoring algorithm
+│       └── SuggestionEngine.php   ← gap analysis and adjacent skill suggestions
+├── data/
+│   ├── keywords.php               ← weighted keyword dictionary (your rulebook)
+│   ├── tech-terms.php             ← master tech term list (200+ terms, auto-extract)
+│   └── kapil-cv.txt               ← CV as plain text (pre-loaded in UI)
+├── resources/views/scorer/
+│   └── index.blade.php            ← web UI
+└── tests/Unit/
+    ├── KeywordExtractorTest.php   ← 6 tests
+    └── CVScorerTest.php           ← 6 tests
+```
+
+---
+
+## PHPUnit tests
+
+```bash
+php artisan test
+
+# PASS  Tests\Unit\CVScorerTest
+# ✓ it scores perfect match as 100
+# ✓ it scores zero when nothing matches
+# ✓ it returns missing keywords correctly
+# ✓ it uses weighted scoring
+# ✓ it handles empty jd keywords
+# ✓ it returns correct matched count
+#
+# PASS  Tests\Unit\KeywordExtractorTest
+# ✓ it extracts known keywords from text
+# ✓ it is case insensitive
+# ✓ it returns empty for no matches
+# ✓ it does not match sql inside mysql
+# ✓ it extracts from jd using master tech list
+# ✓ it returns related terms
+#
+# Tests: 12 passed (28 assertions)
+```
+
+Tests cover: keyword extraction accuracy · case insensitivity · word boundary false positives · weighted score calculation · empty input handling · missing keyword detection
+
+---
+
+## Run locally
+
+```bash
+git clone https://github.com/kapilsharma138/cv-jd-matcher
+cd cv-jd-matcher
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
+
+Open `http://localhost:8000` — paste any tech job description, click Score.
+
+No database required. No API keys. No external services.
+
+---
+
+## Key design decisions
+
+**Why weighted scoring over simple keyword count?**
+Missing PHP in a PHP role is more damaging than missing Kafka. Weights reflect real-world importance — must-have skills penalise the score more than nice-to-have ones.
+
+**Why rule-based instead of NLP/LLM?**
+I evaluated adding an LLM API layer for contextual scoring. Chose the deterministic approach for cost (free, no API key), reliability (no rate limits, no latency), and transparency (same input always gives same output). The same tradeoff production systems make when budget and predictability matter.
+
+**Why two extraction methods?**
+`extract()` uses the weighted dictionary — good when you want weights to reflect importance. `extractFromJD()` uses the master tech list — good when you don't know what the JD will contain. Using the right method in the right place is a deliberate architectural choice.
+
+---
+
+## Next
+
+- [ ] PHPUnit attribute syntax update (`#[Test]` instead of `/** @test */`)
+- [ ] CLI interface — `php artisan cv:score --jd=job.txt`
+- [ ] Frequency scoring — "PHP" appearing 5 times in JD scores higher than once
+- [ ] Deploy to AWS EC2 — live public URL
+
+---
+
+*Part of a backend engineering portfolio.*
+*Previous: [Query Benchmark API](https://github.com/kapilsharma138/Query-Benchmark-API) — 97.52% query improvement, Laravel + MySQL + Redis + AWS EC2*
+
+*[Kapil Sharma](https://linkedin.com/in/kapil-sharma-7665a7b0) · [GitHub](https://github.com/kapilsharma138)*
