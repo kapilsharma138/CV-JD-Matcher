@@ -1,0 +1,14 @@
+Senior PHP Laravel Node.js Engineer AWS REST APIs Microservices Scalable Systems
+
+PHP 8 Laravel Eloquent ORM Artisan CLI Blade Composer CakePHP MVC Architecture OOP
+Node.js Express.js TypeScript JavaScript ES6 Async Await REST API design
+AWS Lambda Amazon EC2 Amazon RDS Amazon S3 AWS IAM AWS VPC CloudFormation Docker CI/CD GitHub Actions
+MySQL PostgreSQL DynamoDB MongoDB Redis Query Optimisation Database Schema Design
+RESTful APIs Microservices API Security Authentication Authorisation Webhooks
+Go SQL HTML5 CSS Git GitHub Agile Scrum Code Review Technical Mentoring
+AWS Cloud Practitioner
+
+Software Engineer Silver Touch Technologies PHP Laravel Node.js DRDO NCDC government portals
+security authentication authorisation input sanitisation batch processing pagination
+query optimisation indexing Redis caching Eloquent ORM CloudFormation GitHub Actions
+EC2 RDS VPC Lambda S3 microservices REST API mentoring junior developers
