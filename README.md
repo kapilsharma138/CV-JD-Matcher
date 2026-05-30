@@ -51,21 +51,27 @@ Missing terms: Kubernetes (adjacent: Docker) · Linux (adjacent: AWS EC2) · Kaf
 ## What this demonstrates
 
 **1. Service class architecture**
+
 Four single-responsibility service classes — `KeywordExtractor`, `CVScorer`, `SuggestionEngine` each do exactly one job. The controller wires them together via Laravel's dependency injection container.
 
 **2. Algorithm design**
+
 Weighted keyword scoring — must-have terms (PHP, Laravel) score 3 points, important terms (AWS, Docker) score 2, nice-to-have terms score 1. Missing a must-have costs more than missing a nice-to-have. Designed and implemented without a library.
 
 **3. Word boundary matching**
+
 `preg_match('/\b' . preg_quote($term) . '\b/')` prevents false positives — "sql" won't match inside "mysql", "php" won't match inside "phpstorm". A real bug found during testing, fixed with a deliberate solution.
 
 **4. Auto-extraction from JD**
+
 The tool doesn't rely solely on a fixed dictionary. `extractFromJD()` scans the JD against a master tech term list (200+ terms) — works on any job description without predicting keywords in advance.
 
 **5. PHPUnit test coverage**
+
 12 unit tests, 28 assertions across two test classes. Core scoring logic is fully tested in isolation — not the framework, the algorithm.
 
 **6. Laravel dependency injection**
+
 Services are bound in `AppServiceProvider` and injected via constructor — not `new`'d inside methods. Clean, testable, production-grade pattern.
 
 ---
