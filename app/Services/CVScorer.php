@@ -26,8 +26,11 @@ class CVScorer
             ];
         }
 
-        foreach ($jdKeywords as $category => $terms) {
-            foreach ($terms as $item) {
+        // foreach ($jdKeywords as $category => $terms) {
+        //     foreach ($terms as $item) {
+        $jdItems = $jdKeywords['extracted'] ?? array_merge(...array_values($jdKeywords));
+        foreach ($jdItems as $item) {
+            $category = $item['category'] ?? 'extracted';
                 $term   = $item['term'];
                 $weight = $item['weight'];
 
@@ -39,7 +42,7 @@ class CVScorer
                 } else {
                     $missing[]      = ['term' => $term, 'category' => $category, 'weight' => $weight];
                 }
-            }
+            // }
         }
 
         $score = $totalPossible > 0
@@ -55,9 +58,30 @@ class CVScorer
         ];
     }
 
+    // private function flatten(array $keywords): array
+    // {
+    //     $terms = [];
+    //     foreach ($keywords as $category => $items) {
+    //         foreach ($items as $item) {
+    //             $terms[] = $item['term'];
+    //         }
+    //     }
+    //     return $terms;
+    // }
+
     private function flatten(array $keywords): array
     {
         $terms = [];
+
+        // handle extractFromJD format
+        if (isset($keywords['extracted'])) {
+            foreach ($keywords['extracted'] as $item) {
+                $terms[] = $item['term'];
+            }
+            return $terms;
+        }
+
+        // handle original extract() format
         foreach ($keywords as $category => $items) {
             foreach ($items as $item) {
                 $terms[] = $item['term'];

@@ -26,7 +26,8 @@ class ScoreController extends Controller
         $request->validate(['jd' => 'required|string|min:20']);
 
         // CHANGED: use extractFromFile helper instead of file_get_contents in controller
-        $jdKeywords = $this->extractor->extract($request->input('jd'));
+        // $jdKeywords = $this->extractor->extract($request->input('jd'));
+        $jdKeywords = $this->extractor->extractFromJD($request->input('jd'));
         $cvKeywords = $this->extractor->extractFromFile(base_path('data/kapil-cv.txt'));
 
         $result      = $this->scorer->score($jdKeywords, $cvKeywords);
